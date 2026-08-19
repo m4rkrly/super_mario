@@ -102,7 +102,9 @@ int main() {
 		game.move_objs_vertically();
 		game.check_mario_collision();
 		game.check_vertically_static_collisions();
-		
+	
+		/* (DEV) is_active показывает будет ли персонаж рассматриваться
+		при коллизиях или нет (мёртв или жив в текущей реализации) */
 		if (
 			game_map->is_below_map(mario->get_top())
 			|| !mario->is_active()

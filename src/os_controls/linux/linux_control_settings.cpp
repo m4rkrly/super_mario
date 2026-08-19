@@ -16,11 +16,15 @@ void LinuxControlSettings::init() {
 	getmaxyx(stdscr, height, width);*/
 	
     initscr();
+    // (DEV) отключает необходимость нажимать enter для отправки ввода
     cbreak();
+    // (DEV) скрывает ввод символов на экране
     noecho();
+    // (DEV) stdscr - "our present window". создаётся initscr
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);	
-	
+
+    // (DEV) задаёт видимость курсора. 0 - невидимый
 	curs_set(0);
 	getmaxyx(stdscr, height, width);
 }
