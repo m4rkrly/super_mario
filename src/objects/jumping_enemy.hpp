@@ -8,6 +8,8 @@
 
 namespace biv {
   class JumpingEnemy : public RectMapMovableAdapter, public Movable, public Collisionable {
+    private:
+      bool is_flying_ = true;
     public: 
       JumpingEnemy(const Coord& top_left, const int width, const int height);
 

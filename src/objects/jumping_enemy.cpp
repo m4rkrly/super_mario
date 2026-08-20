@@ -20,7 +20,11 @@ biv::Speed JumpingEnemy::get_speed() const noexcept {
 void JumpingEnemy::move_horizontally() noexcept {}
 
 void JumpingEnemy::move_vertically() noexcept {
- 	jump();
+	if (is_flying_ == false) {
+ 		jump();
+ 		is_flying_ = true;
+ 	}
+
  	if (vspeed < MAX_V_SPEED) {
 		vspeed += V_ACCELERATION;
 	}
@@ -40,6 +44,9 @@ void JumpingEnemy::process_mario_collision(Collisionable* mario) noexcept {
 void JumpingEnemy::process_vertical_static_collision(Rect* obj) noexcept {
 	if (vspeed > 0) {
 		top_left.y -= vspeed;
-		vspeed = 0;
+		is_flying_ = false;
+	} else if (vspeed < 0) {
+		top_left.y -= vspeed;
 	}
+	vspeed = 0;
 }
