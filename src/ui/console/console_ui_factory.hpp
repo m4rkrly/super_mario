@@ -33,8 +33,8 @@ namespace biv {
 				const Coord& top_left, const int width, const int height
 			) override;
 			virtual void create_flying_enemy(
-				const Coord& top_left, const int width, const int height,
-				const Coord& start, const int offset
+				const Coord& top_left, const int width, const int height, 
+				const unsigned int offset
 			) override;
 			void create_full_box(
 				const Coord& top_left, const int width, const int height

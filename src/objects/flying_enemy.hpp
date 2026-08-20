@@ -13,7 +13,8 @@ namespace biv {
       Coord end;
   
     public:
-      FlyingEnemy(const Coord& top_left, const int width, const int height, const Coord& start, const int offset);
+      FlyingEnemy(const Coord& top_left, const int width, const int height,
+                  const unsigned int offset);
       
       Rect get_rect() const noexcept override;
       Speed get_speed() const noexcept override;

@@ -5,11 +5,11 @@ using biv::FlyingEnemy;
 
 FlyingEnemy::FlyingEnemy(
   const Coord& top_left, const int width, const int height,
-  const Coord& start, const int offset
+  const unsigned int offset
 ) : RectMapMovableAdapter(top_left, width, height) {
   vspeed = 0;
   hspeed = 0.2;
-  this->start = start;
+  start = top_left;
   end = start;
   end.x += offset;
 }
@@ -30,7 +30,7 @@ void FlyingEnemy::move_horizontally() noexcept {
   int start_x = static_cast<int>(start.x);
   int end_x = static_cast<int>(end.x);
 
-  if ((cur_x - start_x == 0) || (end_x - cur_x == 0)) 
+  if ((cur_x - start_x <= 0) || (end_x - cur_x <= 0)) 
     hspeed = -hspeed;
   move_horizontal_offset(hspeed);
 }

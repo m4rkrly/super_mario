@@ -7,7 +7,7 @@ namespace biv {
   class ConsoleFlyingEnemy : public FlyingEnemy, public ConsoleUIObjectRectAdapter {
     public:
       ConsoleFlyingEnemy(const Coord& top_left, const int width, const int height,
-                       const Coord& start, const int offset);
+                         const unsigned int offset);
       
       char get_brush() const noexcept override;
   }; 

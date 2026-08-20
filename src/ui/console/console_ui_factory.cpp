@@ -39,10 +39,10 @@ void ConsoleUIFactory::create_enemy(
 
 void ConsoleUIFactory::create_flying_enemy(
 	const Coord& top_left, const int width, const int height,
-	const Coord& start, const int offset
+	const unsigned int offset
 ) {
 	ConsoleFlyingEnemy* flying_enemy = new ConsoleFlyingEnemy(
-			top_left, width, height, start, offset
+			top_left, width, height, offset
 		);
 	flying_enemies.push_back(flying_enemy);
 	game->add_map_movable(flying_enemy);

@@ -33,7 +33,7 @@ namespace biv {
 				const Coord& top_left, const int width, const int height) = 0;
 			virtual void create_flying_enemy(
 				const Coord& top_left, const int width, const int height,
-				const Coord& start, const int offset
+				const unsigned int offset
 			) = 0;
 			virtual GameMap* get_game_map(const int height, const int width) = 0;
 			virtual Mario* get_mario() = 0;
