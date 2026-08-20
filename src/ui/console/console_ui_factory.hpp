@@ -2,6 +2,7 @@
 
 #include "console_box.hpp"
 #include "console_enemy.hpp"
+#include "console_flying_enemy.hpp"
 #include "console_full_box.hpp"
 #include "console_game_map.hpp"
 #include "console_mario.hpp"
@@ -19,6 +20,7 @@ namespace biv {
 			ConsoleMario* mario = nullptr;
 			std::vector<ConsoleEnemy*> enemies;
 			std::vector<ConsoleMoney*> moneys;
+			std::vector<ConsoleFlyingEnemy*> flying_enemies;
 
 		public:
 			ConsoleUIFactory(Game* game);
@@ -29,6 +31,10 @@ namespace biv {
 			) override;
 			void create_enemy(
 				const Coord& top_left, const int width, const int height
+			) override;
+			virtual void create_flying_enemy(
+				const Coord& top_left, const int width, const int height,
+				const Coord& start, const int offset
 			) override;
 			void create_full_box(
 				const Coord& top_left, const int width, const int height
@@ -42,6 +48,7 @@ namespace biv {
 			void create_ship(
 				const Coord& top_left, const int width, const int height
 			) override;
+			
 			GameMap* get_game_map(const int height, const int width) override;
 			Mario* get_mario() override;
 	};
