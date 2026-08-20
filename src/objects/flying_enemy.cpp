@@ -45,7 +45,12 @@ void FlyingEnemy::move_horizontally() noexcept {
   move_horizontal_offset(hspeed);
 }
 
-void FlyingEnemy::move_vertically() noexcept {}
+void FlyingEnemy::move_vertically() noexcept {
+	if ((vspeed < MAX_V_SPEED) && (is_active() == false)) {
+		vspeed += V_ACCELERATION;
+	}
+	top_left.y += vspeed;
+}
 
 void FlyingEnemy::process_horizontal_static_collision(Rect* obj) noexcept {
 	hspeed = -hspeed;
@@ -56,9 +61,9 @@ void FlyingEnemy::process_horizontal_static_collision(Rect* obj) noexcept {
 void FlyingEnemy::process_mario_collision(Collisionable* mario) noexcept {
 	if (mario->get_speed().v > 0 && mario->get_speed().v != V_ACCELERATION) {
 		kill();
-	} else {
-		mario->kill();
-	}
+	 } else {
+	 	mario->kill();
+	 }
 }
 
 
