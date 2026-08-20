@@ -1,6 +1,5 @@
 #include "flying_enemy.hpp"
 
-
 using biv::FlyingEnemy;
 
 FlyingEnemy::FlyingEnemy(
@@ -24,13 +23,24 @@ biv::Speed FlyingEnemy::get_speed() const noexcept {
 	return {vspeed, hspeed};
 }
 
+void FlyingEnemy::move_map_left() noexcept {
+  top_left.x -= MapMovable::MAP_STEP;
+  start.x -= MapMovable::MAP_STEP;
+  end.x -= MapMovable::MAP_STEP;
+}
+
+void FlyingEnemy::move_map_right() noexcept {
+  top_left.x += MapMovable::MAP_STEP;
+  start.x += MapMovable::MAP_STEP;
+  end.x += MapMovable::MAP_STEP;
+}
 
 void FlyingEnemy::move_horizontally() noexcept {
   int cur_x = static_cast<int>(top_left.x);
   int start_x = static_cast<int>(start.x);
   int end_x = static_cast<int>(end.x);
 
-  if ((cur_x - start_x <= 0) || (end_x - cur_x <= 0)) 
+  if ((cur_x - start_x < 0) || (end_x - cur_x < 0)) 
     hspeed = -hspeed;
   move_horizontal_offset(hspeed);
 }
