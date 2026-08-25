@@ -10,6 +10,7 @@
 #include "map_movable.hpp"
 #include "mario.hpp"
 #include "movable.hpp"
+#include "platform.hpp"
 #include "rect.hpp"
 
 namespace biv {
@@ -19,6 +20,7 @@ namespace biv {
 			std::vector<Rect*> static_objs;
 			std::vector<Collisionable*> collisionable_objs;
 			std::vector<Movable*> movable_objs;
+			std::vector<Platform*> platform_objs;
 			
 			Mario* mario = nullptr;
 			
@@ -32,15 +34,19 @@ namespace biv {
 			void add_map_movable(MapMovable*);
 			void add_mario(Mario*);
 			void add_movable(Movable*);
+			void add_platform(Platform*);
 			void add_static_obj(Rect*);
 			
 			void check_horizontally_static_collisions() noexcept;
 			void check_mario_collision();
 			bool check_static_collisions(Collisionable* obj) const noexcept;
+			bool check_static_collisions_except(Collisionable* obj, Rect* exc_obj) const noexcept;
 			void check_vertically_static_collisions() noexcept;
 			
 			void finish() noexcept;
 			
+			void gather_platforms_passangers() noexcept;
+
 			bool is_finished() const noexcept;
 			bool is_level_end() const noexcept;
 			
@@ -48,12 +54,14 @@ namespace biv {
 			void move_map_right() noexcept;
 			void move_objs_horizontally() noexcept;
 			void move_objs_vertically() noexcept;
+			void move_platforms() noexcept;
 			
 			void remove_collisionable(Collisionable*);
 			void remove_map_movable(MapMovable*);
 			void remove_mario() noexcept;
 			void remove_movable(Movable*);
 			void remove_objs();
+			void remove_platform(Platform*);
 			void remove_static_obj(Rect*);
 			
 			void start_level() noexcept;

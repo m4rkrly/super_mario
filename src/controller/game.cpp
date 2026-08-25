@@ -22,9 +22,12 @@ void Game::add_movable(Movable* obj) {
 	movable_objs.push_back(obj);
 }
 
+void Game::add_platform(Platform* obj) {}
+
 void Game::add_static_obj(Rect* obj) {
 	static_objs.push_back(obj);
 }
+
 
 void Game::check_horizontally_static_collisions() noexcept {
 	for (Collisionable* obj: collisionable_objs) {
@@ -63,6 +66,12 @@ bool Game::check_static_collisions(Collisionable* obj) const noexcept {
 	return false;
 }
 
+
+bool Game::check_static_collisions_except(
+	Collisionable* obj, Rect* exc_obj
+) const noexcept {}
+
+
 void Game::check_vertically_static_collisions() noexcept {
 	if (mario->has_collision(static_objs[static_objs.size() - 1])) {
 		is_level_end_ = true;
@@ -81,6 +90,8 @@ void Game::check_vertically_static_collisions() noexcept {
 void Game::finish() noexcept {
 	is_finished_ = true;
 }
+
+void gather_platforms_passangers() noexcept {}
 
 bool Game::is_finished() const noexcept {
 	return is_finished_;
@@ -114,6 +125,8 @@ void Game::move_objs_vertically() noexcept {
 	}
 }
 
+void move_platforms() noexcept {}
+
 void Game::remove_collisionable(Collisionable* obj) {
 	remove_obj(collisionable_objs, obj);
 }
@@ -137,6 +150,8 @@ void Game::remove_objs() {
 	static_objs.clear();
 	remove_mario();
 }
+
+void Game::remove_platform(Platform* obj) {}
 
 void Game::remove_static_obj(Rect* obj) {
 	remove_obj(static_objs, obj);
