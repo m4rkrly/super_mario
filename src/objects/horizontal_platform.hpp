@@ -15,6 +15,6 @@ namespace biv {
       bool is_in_platform_way(Movable*) const noexcept override;
       
       Coord move_platform() noexcept override;
-      virtual void process_static_collision(Rect*) noexcept override;
+      virtual void process_static_collision() noexcept override;
   };
 }

@@ -47,24 +47,6 @@ void Platform::move_vertically() noexcept {
   move_vertical_offset(vspeed);
 }
 
-
-void Platform::process_horizontal_static_collision(Rect* obj) noexcept {
-  hspeed = -hspeed;
-  move_horizontally();
-}
-
-
-void Platform::process_mario_collision(Collisionable*) noexcept {
-  return;
-}
-
-
-void Platform::process_vertical_static_collision(Rect* obj) noexcept {
-  vspeed = -vspeed;
-  move_vertically();
-}
-
-
 bool Platform::is_on_platform(Movable* obj) const noexcept { return false; }
 
 
@@ -76,7 +58,7 @@ biv::Coord Platform::move_platform() noexcept {
 }
 
 
-void Platform::process_static_collision(Rect* obj) noexcept {}
+void Platform::process_static_collision() noexcept {}
 
 
 

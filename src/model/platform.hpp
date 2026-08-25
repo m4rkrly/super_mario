@@ -8,7 +8,7 @@
 #include "rect_map_movable_adapter.hpp"
 
 namespace biv {
-  class Platform : public RectMapMovableAdapter, protected Movable, protected Collisionable {
+  class Platform : public RectMapMovableAdapter, protected Movable {
     protected:
       Coord start;
       Coord end;
@@ -21,10 +21,6 @@ namespace biv {
       virtual void move_horizontally() noexcept override;
       virtual void move_vertically() noexcept override;
 
-      virtual void process_horizontal_static_collision(Rect*) noexcept override;
-      virtual void process_mario_collision(Collisionable*) noexcept;
-      virtual void process_vertical_static_collision(Rect*) noexcept;
-
     public:
       Platform(
         const Coord& top_left, const int width, const int height,
@@ -35,7 +31,7 @@ namespace biv {
       virtual bool is_in_platform_way(Movable*) const noexcept;
       
       virtual Coord move_platform() noexcept;
-      virtual void process_static_collision(Rect*) noexcept;
+      virtual void process_static_collision() noexcept;
 
       void update_passangers(const std::vector<Movable*> passangers) noexcept;
   };

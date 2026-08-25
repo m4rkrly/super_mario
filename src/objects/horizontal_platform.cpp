@@ -36,10 +36,10 @@ bool HorizontalPlatform::is_in_platform_way(
 
 biv::Coord HorizontalPlatform::move_platform() noexcept {
   move_horizontally();
+  return {hspeed, 0};
 }
 
-void HorizontalPlatform::process_static_collision(
-  Rect* obj
-) noexcept {
-  process_horizontal_static_collision(obj);
+void HorizontalPlatform::process_static_collision() noexcept {
+  hspeed = -hspeed;
+  move_horizontally();
 }
