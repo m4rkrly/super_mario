@@ -112,6 +112,22 @@ void ConsoleUIFactory::create_ship(
 }
 
 
+void ConsoleUIFactory::create_horizontal_platform(
+	const Coord& top_left, const int width, const int height,
+	const unsigned int offset
+) {
+	ConsoleHorizontalPlatform* platform = new ConsoleHorizontalPlatform(
+		top_left, width, height, offset
+	);
+	horizontal_platforms.push_back(platform);
+	game->add_map_movable(platform);
+	game->add_static_obj(platform);
+	game->add_platform(platform);
+	game_map->add_obj(platform);
+}
+
+
+
 biv::GameMap* ConsoleUIFactory::get_game_map(const int height, const int width) {
 	if (game_map == nullptr) {
 		game_map = new ConsoleGameMap(height, width);
