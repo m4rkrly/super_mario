@@ -22,7 +22,9 @@ void Game::add_movable(Movable* obj) {
 	movable_objs.push_back(obj);
 }
 
-void Game::add_platform(Platform* obj) {}
+void Game::add_platform(Platform* obj) {
+	platform_objs.push_back(obj);
+}
 
 void Game::add_static_obj(Rect* obj) {
 	static_objs.push_back(obj);
@@ -69,7 +71,14 @@ bool Game::check_static_collisions(Collisionable* obj) const noexcept {
 
 bool Game::check_static_collisions_except(
 	Collisionable* obj, Rect* exc_obj
-) const noexcept {}
+) const noexcept {
+	for (Rect* static_obj: static_objs) {
+		if (obj->has_collision(static_obj) && static_obj != exc_obj) {
+			return true;
+		}
+	}
+	return false;
+}
 
 
 void Game::check_vertically_static_collisions() noexcept {
@@ -91,7 +100,18 @@ void Game::finish() noexcept {
 	is_finished_ = true;
 }
 
-void gather_platforms_passangers() noexcept {}
+void Game::gather_platforms_passangers() noexcept {
+	std::vector<Movable*> passangers_temp;
+	for (Platform* pf : platform_objs) {
+		for (Movable* mv : movable_objs) {
+			if (pf->is_on_platform()) {
+				passangers_temp.push_back(mv);
+			}
+		}
+		pf->update_passangers(passangers_temp);
+		passangers_temp.clear();
+	}
+}
 
 bool Game::is_finished() const noexcept {
 	return is_finished_;
@@ -125,7 +145,8 @@ void Game::move_objs_vertically() noexcept {
 	}
 }
 
-void move_platforms() noexcept {}
+void Game::move_platforms() noexcept {
+}
 
 void Game::remove_collisionable(Collisionable* obj) {
 	remove_obj(collisionable_objs, obj);
@@ -151,7 +172,9 @@ void Game::remove_objs() {
 	remove_mario();
 }
 
-void Game::remove_platform(Platform* obj) {}
+void Game::remove_platform(Platform* obj) {
+	remove_obj(platform_objs, obj);
+}
 
 void Game::remove_static_obj(Rect* obj) {
 	remove_obj(static_objs, obj);
