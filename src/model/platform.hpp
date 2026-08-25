@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "collisionable.hpp"
-#include "coord.hpp"
 #include "movable.hpp"
 #include "rect.hpp"
 #include "rect_map_movable_adapter.hpp"
@@ -14,6 +13,8 @@ namespace biv {
       Coord start;
       Coord end;
       
+      std::vector<Movable*> passangers;
+
       void move_map_left() noexcept override;
       void move_map_right() noexcept override;
 

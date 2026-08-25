@@ -13,34 +13,55 @@ Platform::Platform(
 
 
 void Platform::move_map_left() noexcept {
-
+  top_left.x -= MapMovable::MAP_STEP;
+  start.x -= MapMovable::MAP_STEP;
+  end.x -= MapMovable::MAP_STEP;
 }
 
 
 void Platform::move_map_right() noexcept {
-
+  top_left.x += MapMovable::MAP_STEP;
+  start.x += MapMovable::MAP_STEP;
+  end.x += MapMovable::MAP_STEP;
 }
 
 
-void Platform::move_horizontally() noexcept {}
+void Platform::move_horizontally() noexcept {
+  int cur_x = static_cast<int>(top_left.x);
+  int start_x = static_cast<int>(start.x);
+  int end_x = static_cast<int>(end.x);
+
+  if ((cur_x - start_x < 0) || (end_x - cur_x < 0)) 
+    hspeed = -hspeed;
+  move_horizontal_offset(hspeed);
+}
 
 
+void Platform::move_vertically() noexcept {
+  int cur_y = static_cast<int>(top_left.y);
+  int start_y = static_cast<int>(start.y);
+  int end_y = static_cast<int>(end.y);
 
-void Platform::move_vertically() noexcept {}
+  if ((cur_y - start_y < 0) || (end_y - cur_y < 0)) 
+    vspeed = -vspeed;
+  move_vertical_offset(vspeed);
+}
 
 
 void Platform::process_horizontal_static_collision(Rect* obj) noexcept {
-  
+  hspeed = -hspeed;
+  move_horizontally();
 }
 
 
 void Platform::process_mario_collision(Collisionable*) noexcept {
-
+  return;
 }
 
 
 void Platform::process_vertical_static_collision(Rect* obj) noexcept {
-  
+  vspeed = -vspeed;
+  move_vertically();
 }
 
 
@@ -55,14 +76,12 @@ biv::Coord Platform::move_platform() noexcept {
 }
 
 
-void Platform::process_static_collision() noexcept {
-
-}
+void Platform::process_static_collision() noexcept {}
 
 
 
 void Platform::update_passangers(
   const std::vector<Movable*> passangers
 ) noexcept {
-
+  this->passangers = passangers;
 }
