@@ -37,10 +37,12 @@ namespace biv {
 			void add_platform(Platform*);
 			void add_static_obj(Rect*);
 			
+			bool are_colliding(Rect* obj1, Rect* obj2) const noexcept;
+			
 			void check_horizontally_static_collisions() noexcept;
 			void check_mario_collision();
 			bool check_static_collisions(Collisionable* obj) const noexcept;
-			bool check_static_collisions_except(Collisionable* obj, Rect* exc_obj) const noexcept;
+			bool check_static_collisions_except(Rect* obj, Rect* exc_obj) const noexcept;
 			void check_vertically_static_collisions() noexcept;
 			
 			void finish() noexcept;

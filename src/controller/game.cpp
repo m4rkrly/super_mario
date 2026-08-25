@@ -31,6 +31,16 @@ void Game::add_static_obj(Rect* obj) {
 }
 
 
+bool Game::are_colliding(Rect* obj1, Rect* obj2) const noexcept {
+	return (
+		obj1->get_right() > obj2->get_left() &&
+		obj1->get_left() < obj2->get_right() && 
+		obj1->get_bottom() > obj2->get_top() && 
+		obj1->get_top() < obj2->get_bottom()
+	);
+}
+
+
 void Game::check_horizontally_static_collisions() noexcept {
 	for (Collisionable* obj: collisionable_objs) {
 		for (Rect* static_obj: static_objs) {
@@ -70,10 +80,10 @@ bool Game::check_static_collisions(Collisionable* obj) const noexcept {
 
 
 bool Game::check_static_collisions_except(
-	Collisionable* obj, Rect* exc_obj
+	Rect* obj, Rect* exc_obj
 ) const noexcept {
 	for (Rect* static_obj: static_objs) {
-		if (obj->has_collision(static_obj) && static_obj != exc_obj) {
+		if (are_colliding(obj, exc_obj) && static_obj != exc_obj) {
 			return true;
 		}
 	}
@@ -146,6 +156,21 @@ void Game::move_objs_vertically() noexcept {
 }
 
 void Game::move_platforms() noexcept {
+	for (Platform* pf : platform_objs) {
+		Coord d = pf->move_platform();
+		if (check_static_collisions_except(pf, pf)) {
+			pf->process_static_collision();
+			return;
+		}
+
+		for (Movable* mv : movable_objs) {
+			mv->move_coord_offset(d);
+			if (check_static_collisions_except(mv, pf)) {
+				Coord neg_d = {-d.x, -d.y};
+				mv->move_coord_offset(neg_d);
+			}
+		}
+	}
 }
 
 void Game::remove_collisionable(Collisionable* obj) {
