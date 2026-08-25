@@ -3,6 +3,7 @@ target_sources(${PROJECT_NAME}
 		full_box.cpp
 		enemy.cpp
 		flying_enemy.cpp
+		horizontal_platform.cpp
 		jumping_enemy.cpp
 		mario.cpp
 		money.cpp

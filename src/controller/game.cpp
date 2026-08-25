@@ -114,7 +114,7 @@ void Game::gather_platforms_passangers() noexcept {
 	std::vector<Movable*> passangers_temp;
 	for (Platform* pf : platform_objs) {
 		for (Movable* mv : movable_objs) {
-			if (pf->is_on_platform()) {
+			if (pf->is_on_platform(mv)) {
 				passangers_temp.push_back(mv);
 			}
 		}

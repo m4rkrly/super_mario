@@ -8,7 +8,7 @@
 #include "rect_map_movable_adapter.hpp"
 
 namespace biv {
-  class Platform : public RectMapMovableAdapter, protected Movable, private Collisionable {
+  class Platform : public RectMapMovableAdapter, protected Movable, protected Collisionable {
     protected:
       Coord start;
       Coord end;
@@ -31,11 +31,11 @@ namespace biv {
         const unsigned int offset
       );
 
-      virtual bool is_on_platform() const noexcept;
-      virtual bool is_in_platform_way() const noexcept;
+      virtual bool is_on_platform(Movable*) const noexcept;
+      virtual bool is_in_platform_way(Movable*) const noexcept;
       
       virtual Coord move_platform() noexcept;
-      virtual void process_static_collision() noexcept;
+      virtual void process_static_collision(Rect*) noexcept;
 
       void update_passangers(const std::vector<Movable*> passangers) noexcept;
   };

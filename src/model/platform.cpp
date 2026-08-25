@@ -65,10 +65,10 @@ void Platform::process_vertical_static_collision(Rect* obj) noexcept {
 }
 
 
-bool Platform::is_on_platform() const noexcept { return false; }
+bool Platform::is_on_platform(Movable* obj) const noexcept { return false; }
 
 
-bool Platform::is_in_platform_way() const noexcept { return false; }
+bool Platform::is_in_platform_way(Movable* obj) const noexcept { return false; }
 
 
 biv::Coord Platform::move_platform() noexcept {
@@ -76,7 +76,7 @@ biv::Coord Platform::move_platform() noexcept {
 }
 
 
-void Platform::process_static_collision() noexcept {}
+void Platform::process_static_collision(Rect* obj) noexcept {}
 
 
 
