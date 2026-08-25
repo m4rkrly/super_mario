@@ -32,6 +32,11 @@ void Movable::move_vertical_offset(const float offset) noexcept {
 	top_left.y += offset;
 }
 
+void Movable::move_coord_offset(const Coord offset) noexcept {
+	top_left.x += offset.x;
+	top_left.y += offset.y;
+}
+
 // ----------------------------------------------------------------------------
 // 									VIRTUAL
 // ----------------------------------------------------------------------------
