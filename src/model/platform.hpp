@@ -13,7 +13,6 @@ namespace biv {
       Coord start;
       Coord end;
       
-
       void move_map_left() noexcept override;
       void move_map_right() noexcept override;
 
@@ -27,6 +26,8 @@ namespace biv {
         const Coord& top_left, const int width, const int height,
         const unsigned int offset
       );
+    
+      void force_passsangers_direction_recheck() noexcept;
 
       virtual bool is_on_platform(Movable*) const noexcept;
       virtual bool is_in_platform_way(Movable*) const noexcept;

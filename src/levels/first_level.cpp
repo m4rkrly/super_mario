@@ -36,7 +36,7 @@ void FirstLevel::init_data() {
 
 	ui_factory->create_horizontal_platform({125, 10}, 10, 3, 10);
 
-	ui_factory->create_box({140, 5}, 3, 7);
+	//ui_factory->create_box({140, 5}, 3, 7);
 
 	ui_factory->create_box({85, 10}, 10, 3);
 	
@@ -49,7 +49,7 @@ void FirstLevel::init_data() {
 	//ui_factory->create_enemy({25, 5}, 3, 2);
 	//ui_factory->create_enemy({70, 15}, 3, 2);
 	//ui_factory->create_enemy({80, 5}, 3, 2);
-	ui_factory->create_enemy({125, 5}, 3, 2);
+	ui_factory->create_enemy({130, 5}, 3, 2);
 	ui_factory->create_enemy({160, 5}, 3, 2);
 
 	ui_factory->create_flying_enemy({80, 3}, 4, 2, 10);

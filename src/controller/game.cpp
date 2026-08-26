@@ -157,13 +157,15 @@ void Game::move_objs_vertically() noexcept {
 
 void Game::move_platforms() noexcept {
 	for (Platform* pf : platform_objs) {
-		Coord d = pf->move_platform();
+		Coord old_coord = {pf->get_x(), pf->get_y()};
+		pf->move_platform();
 		if (check_static_collisions_except(pf, pf)) {
 			pf->process_static_collision();
-			return;
 		}
+		Coord new_coord = {pf->get_x(), pf->get_y()};
 
-		// Переделать под геттер!
+		Coord d = {new_coord.x - old_coord.x, new_coord.y - old_coord.y};
+
 		for (Movable* mv : pf->get_passangers()) {
 			mv->move_coord_offset(d);
 			if (check_static_collisions_except(mv, pf)) {
@@ -171,6 +173,8 @@ void Game::move_platforms() noexcept {
 				mv->move_coord_offset(neg_d);
 			}
 		}
+
+		pf->force_passsangers_direction_recheck();
 	}
 }
 
