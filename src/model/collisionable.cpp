@@ -2,6 +2,8 @@
 
 using biv::Collisionable;
 
+void Collisionable::decide_to_move(Rect*) noexcept {}
+
 bool Collisionable::has_collision(Rect* obj) const noexcept {
 	Rect myself = get_rect();
 	return (

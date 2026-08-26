@@ -18,6 +18,24 @@ biv::Speed Enemy::get_speed() const noexcept {
 	return {vspeed, hspeed};
 }
 
+void Enemy::decide_to_move(Rect* static_obj) noexcept {
+  float next_left = get_x() + hspeed;
+  float next_right = get_x() + width + hspeed; 
+
+  if (next_left < static_obj->get_left() || next_right > static_obj->get_right()) {
+    hspeed = -hspeed;
+  }
+	// top_left.y--;
+	// top_left.x += hspeed;
+	// if (!has_collision(static_obj)) {
+	// 	process_horizontal_static_collision(static_obj);
+	// 	top_left.y++;
+	// } else {
+	// 	top_left.x -= hspeed;
+	// 	top_left.y++;
+	// }
+}
+
 void Enemy::process_horizontal_static_collision(Rect* obj) noexcept {
 	hspeed = -hspeed;
 	move_horizontally();
@@ -35,13 +53,8 @@ void Enemy::process_vertical_static_collision(Rect* obj) noexcept {
 	// Проверка: не свалился ли враг с корабля. 
 	// Т.е., если он на краю, то он должен разверуться 
 	// и побежать в обратную сторону.
-	top_left.x += hspeed;
-	if (!has_collision(obj)) {
-		process_horizontal_static_collision(obj);
-	} else {
-		top_left.x -= hspeed;
-	}
-	
+	decide_to_move(obj);
+
 	// Особенность модели вертикального передвижения в игре.
 	if (vspeed > 0) {
 		top_left.y -= vspeed;

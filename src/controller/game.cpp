@@ -173,7 +173,6 @@ void Game::move_platforms() noexcept {
 				mv->move_coord_offset(neg_d);
 			}
 		}
-
 		pf->force_passsangers_direction_recheck();
 	}
 }

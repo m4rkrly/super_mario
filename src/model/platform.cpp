@@ -51,8 +51,7 @@ void Platform::move_vertically() noexcept {
 void Platform::force_passsangers_direction_recheck() noexcept {
   for (Movable* mv : this->passangers) {
     Collisionable* cl = dynamic_cast<Collisionable*>(mv);
-    // Нужно сделать отдельную функцию
-    //cl->process_vertical_static_collision(this);
+    cl->decide_to_move(this);
   }
 }
 
