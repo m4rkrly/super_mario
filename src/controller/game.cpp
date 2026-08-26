@@ -83,7 +83,7 @@ bool Game::check_static_collisions_except(
 	Rect* obj, Rect* exc_obj
 ) const noexcept {
 	for (Rect* static_obj: static_objs) {
-		if (are_colliding(obj, exc_obj) && static_obj != exc_obj) {
+		if (are_colliding(obj, static_obj) && static_obj != exc_obj) {
 			return true;
 		}
 	}
@@ -163,7 +163,8 @@ void Game::move_platforms() noexcept {
 			return;
 		}
 
-		for (Movable* mv : movable_objs) {
+		// Переделать под геттер!
+		for (Movable* mv : pf->get_passangers()) {
 			mv->move_coord_offset(d);
 			if (check_static_collisions_except(mv, pf)) {
 				Coord neg_d = {-d.x, -d.y};

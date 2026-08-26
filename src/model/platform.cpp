@@ -67,3 +67,7 @@ void Platform::update_passangers(
 ) noexcept {
   this->passangers = passangers;
 }
+
+std::vector<biv::Movable*> Platform::get_passangers() const noexcept {
+  return this->passangers;
+}

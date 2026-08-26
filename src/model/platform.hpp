@@ -13,7 +13,6 @@ namespace biv {
       Coord start;
       Coord end;
       
-      std::vector<Movable*> passangers;
 
       void move_map_left() noexcept override;
       void move_map_right() noexcept override;
@@ -22,6 +21,8 @@ namespace biv {
       virtual void move_vertically() noexcept override;
 
     public:
+      std::vector<Movable*> passangers;
+
       Platform(
         const Coord& top_left, const int width, const int height,
         const unsigned int offset
@@ -34,5 +35,6 @@ namespace biv {
       virtual void process_static_collision() noexcept;
 
       void update_passangers(const std::vector<Movable*> passangers) noexcept;
+      std::vector<Movable*> get_passangers() const noexcept;
   };
 }

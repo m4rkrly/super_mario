@@ -33,6 +33,11 @@ void FirstLevel::init_data() {
 	ui_factory->create_full_box({70, 10}, 5, 3);
 	ui_factory->create_box({75, 10}, 5, 3);
 	ui_factory->create_full_box({80, 10}, 5, 3);
+
+	ui_factory->create_horizontal_platform({125, 10}, 10, 3, 10);
+
+	ui_factory->create_box({140, 5}, 3, 7);
+
 	ui_factory->create_box({85, 10}, 10, 3);
 	
 	ui_factory->create_ship({100, 25}, 20, 2);
