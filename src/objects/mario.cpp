@@ -5,7 +5,7 @@
 using biv::Mario;
 
 Mario::Mario(const Coord& top_left, const int width, const int height) 
-	: Movable(top_left, width, height, 0, 0) {}
+	: MoveCollisionable(top_left, width, height, 0, 0) {}
 
 biv::Rect Mario::get_rect() const noexcept {
 	return {top_left, width, height};
@@ -39,4 +39,8 @@ void Mario::process_vertical_static_collision(Rect* obj) noexcept {
 		top_left.y -= vspeed;
 	}
 	vspeed = 0;
+}
+
+void Mario::process_movable_collision(Movable* mv) noexcept {
+
 }

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "collisionable.hpp"
+#include "move_collisionable.hpp"
 #include "map_movable.hpp"
 #include "mario.hpp"
 #include "movable.hpp"
@@ -21,6 +22,7 @@ namespace biv {
 			std::vector<Collisionable*> collisionable_objs;
 			std::vector<Movable*> movable_objs;
 			std::vector<Platform*> platform_objs;
+			std::vector<MoveCollisionable*> move_coll_objs;
 			
 			Mario* mario = nullptr;
 			
@@ -37,12 +39,11 @@ namespace biv {
 			void add_platform(Platform*);
 			void add_static_obj(Rect*);
 			
-			bool are_colliding(Rect* obj1, Rect* obj2) const noexcept;
-			
 			void check_horizontally_static_collisions() noexcept;
 			void check_mario_collision();
 			bool check_static_collisions(Collisionable* obj) const noexcept;
 			bool check_static_collisions_except(Rect* obj, Rect* exc_obj) const noexcept;
+			bool are_colliding(Rect* obj1, Rect* obj2) const noexcept;
 			void check_vertically_static_collisions() noexcept;
 			
 			void finish() noexcept;

@@ -4,9 +4,10 @@
 #include "movable.hpp"
 #include "rect.hpp"
 #include "speed.hpp"
+#include "move_collisionable.hpp"
 
 namespace biv {
-	class Mario : public Movable, public Collisionable {
+	class Mario : public MoveCollisionable {
 		public:
 			Mario(const Coord& top_left, const int width, const int height);
 
@@ -19,5 +20,6 @@ namespace biv {
 			void process_horizontal_static_collision(Rect*) noexcept override;
 			void process_mario_collision(Collisionable*) noexcept override;
 			void process_vertical_static_collision(Rect*) noexcept override;
+			void process_movable_collision(Movable*) noexcept override;
 	};
 }
