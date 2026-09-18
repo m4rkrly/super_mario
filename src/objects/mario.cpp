@@ -42,5 +42,5 @@ void Mario::process_vertical_static_collision(Rect* obj) noexcept {
 }
 
 void Mario::process_movable_collision(Movable* mv) noexcept {
-
+	
 }
