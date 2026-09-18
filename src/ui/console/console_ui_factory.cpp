@@ -34,6 +34,7 @@ void ConsoleUIFactory::create_enemy(
 	game->add_map_movable(enemy);
 	game->add_movable(enemy);
 	game->add_collisionable(enemy);
+	game->add_move_collisionable(enemy);
 	game_map->add_obj(enemy);
 }
 
@@ -87,6 +88,7 @@ void ConsoleUIFactory::create_mario(
 	game->add_collisionable(mario);
 	game->add_movable(mario);
 	game->add_mario(mario);
+	game->add_move_collisionable(mario);
 	game_map->add_obj(mario);
 }
 
@@ -99,6 +101,8 @@ void ConsoleUIFactory::create_money(
 	game->add_movable(money);
 	game->add_collisionable(money);
 	game_map->add_obj(money);
+
+	// (DEV) Добавить сюда move_collisionable тоже!
 }
 
 void ConsoleUIFactory::create_ship(

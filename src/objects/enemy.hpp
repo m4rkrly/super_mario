@@ -5,14 +5,13 @@
 
 #pragma once
 
-#include "collisionable.hpp"
-#include "movable.hpp"
+#include "move_collisionable.hpp"
 #include "rect.hpp"
 #include "rect_map_movable_adapter.hpp"
 #include "speed.hpp"
 
 namespace biv {
-	class Enemy : public RectMapMovableAdapter, public Movable, public Collisionable {
+	class Enemy : public RectMapMovableAdapter, public MoveCollisionable {
 		public:
 			Enemy(const Coord& top_left, const int width, const int height);
 
@@ -22,5 +21,6 @@ namespace biv {
 			void process_horizontal_static_collision(Rect*) noexcept override;
 			void process_mario_collision(Collisionable*) noexcept override;
 			void process_vertical_static_collision(Rect*) noexcept override;
+			void process_movable_collision(Movable*) noexcept override;
 	};
 }

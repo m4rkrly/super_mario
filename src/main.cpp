@@ -96,7 +96,7 @@ int main() {
 		}
 		
 		// 3. Обновление внутреннего состояния игры
-		game.gather_platforms_passangers();
+		//game.gather_platforms_passangers();
 		game.move_platforms();
 		game.move_objs_horizontally();
 		game.check_horizontally_static_collisions();

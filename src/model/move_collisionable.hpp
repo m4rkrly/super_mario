@@ -6,6 +6,7 @@
 namespace biv {
   class MoveCollisionable : public Movable, public Collisionable {
     public:
+      MoveCollisionable();
       MoveCollisionable(
         const Coord& top_left,
         const int width, const int height,

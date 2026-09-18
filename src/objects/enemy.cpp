@@ -57,3 +57,19 @@ void Enemy::process_vertical_static_collision(Rect* obj) noexcept {
 		vspeed = 0;
 	}
 }
+
+
+void Enemy::process_movable_collision(Movable* mv) noexcept {
+	float pf_speed = mv->get_hspeed();
+	this->hspeed += pf_speed;
+	move_horizontally();
+	this->hspeed -= pf_speed;
+
+	float next_left = get_x() + hspeed;
+  float next_right = get_x() + width + hspeed; 
+
+  if (next_left < mv->get_left() || next_right > mv->get_right()) {
+    hspeed = -hspeed;
+  }
+
+}

@@ -30,6 +30,9 @@ void Game::add_static_obj(Rect* obj) {
 	static_objs.push_back(obj);
 }
 
+void Game::add_move_collisionable(MoveCollisionable* obj) {
+	move_coll_objs.push_back(obj);
+}
 
 bool Game::are_colliding(Rect* obj1, Rect* obj2) const noexcept {
 	return (
@@ -110,18 +113,18 @@ void Game::finish() noexcept {
 	is_finished_ = true;
 }
 
-void Game::gather_platforms_passangers() noexcept {
-	std::vector<Movable*> passangers_temp;
-	for (Platform* pf : platform_objs) {
-		for (Movable* mv : movable_objs) {
-			if (pf->is_on_platform(mv)) {
-				passangers_temp.push_back(mv);
-			}
-		}
-		pf->update_passangers(passangers_temp);
-		passangers_temp.clear();
-	}
-}
+// void Game::gather_platforms_passangers() noexcept {
+// 	std::vector<Movable*> passangers_temp;
+// 	for (Platform* pf : platform_objs) {
+// 		for (Movable* mv : movable_objs) {
+// 			if (pf->is_on_platform(mv)) {
+// 				passangers_temp.push_back(mv);
+// 			}
+// 		}
+// 		pf->update_passangers(passangers_temp);
+// 		passangers_temp.clear();
+// 	}
+// }
 
 bool Game::is_finished() const noexcept {
 	return is_finished_;
@@ -159,28 +162,40 @@ void Game::move_platforms() noexcept {
 	for (Platform* pf : platform_objs) {
 		// Если будешь переносить gather_passangers
 		// то делай это ДО передвижения платформы
-		// 
-		// std::vector<MoveCollisionable*> Game::gather_passangers(Platform* pf)
-		Coord old_coord = {pf->get_x(), pf->get_y()};
+		
+		// 1. Собираем пассажиров
+		std::vector<MoveCollisionable*> passangers;
+		for (MoveCollisionable* mv : move_coll_objs) {
+			if (pf->is_on_platform(mv)) {
+				passangers.push_back(mv);
+			}
+		}
+	
+		// 2. Двигаем платформу
+		//Coord old_coord = {pf->get_x(), pf->get_y()};
 		pf->move_platform();
 		if (check_static_collisions_except(pf, pf)) {
 			pf->process_static_collision();
 		}
-		Coord new_coord = {pf->get_x(), pf->get_y()};
+		//Coord new_coord = {pf->get_x(), pf->get_y()};
 
-		Coord d = {new_coord.x - old_coord.x, new_coord.y - old_coord.y};
-
-		// for (MoveCollisionable* mvc : passangers)
-		for (Movable* mv : pf->get_passangers()) {
+		//Coord d = {new_coord.x - old_coord.x, new_coord.y - old_coord.y};
+		
+		// 3. Двигаем пассажиров
+		for (MoveCollisionable* mvc : passangers) {
+			mvc->process_movable_collision(pf);
+			 //for (Movable* mv : pf->get_passangers()) {
 			// Возможно в этой же функции он будет решать своё следующее движение
 			// mvc->process_move_collision(Movable* pf)
 			// Про скатывание забудь
-			mv->move_coord_offset(d);
-			if (check_static_collisions_except(mv, pf)) {
-				Coord neg_d = {-d.x, -d.y};
-				mv->move_coord_offset(neg_d);
-			}
+			// mv->move_coord_offset(d);
+			// if (check_static_collisions_except(mv, pf)) {
+			// 	Coord neg_d = {-d.x, -d.y};
+			// 	mv->move_coord_offset(neg_d);
+			// }
 		}
+
+		passangers.clear();
 	}
 }
 
@@ -214,6 +229,10 @@ void Game::remove_platform(Platform* obj) {
 
 void Game::remove_static_obj(Rect* obj) {
 	remove_obj(static_objs, obj);
+}
+
+void Game::remove_move_collisionable(MoveCollisionable* obj) {
+	remove_obj(move_coll_objs, obj);
 }
 
 void Game::start_level() noexcept {

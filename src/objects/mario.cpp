@@ -42,5 +42,9 @@ void Mario::process_vertical_static_collision(Rect* obj) noexcept {
 }
 
 void Mario::process_movable_collision(Movable* mv) noexcept {
-	
+	// Как добавить сюда перемещение карты?
+	float pf_speed = mv->get_hspeed();
+	this->hspeed += pf_speed;
+	move_horizontally();
+	this->hspeed -= pf_speed;
 }

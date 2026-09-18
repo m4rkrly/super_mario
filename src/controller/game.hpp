@@ -38,6 +38,7 @@ namespace biv {
 			void add_movable(Movable*);
 			void add_platform(Platform*);
 			void add_static_obj(Rect*);
+			void add_move_collisionable(MoveCollisionable*);
 			
 			void check_horizontally_static_collisions() noexcept;
 			void check_mario_collision();
@@ -48,7 +49,7 @@ namespace biv {
 			
 			void finish() noexcept;
 			
-			void gather_platforms_passangers() noexcept;
+			//void gather_platforms_passangers() noexcept;
 
 			bool is_finished() const noexcept;
 			bool is_level_end() const noexcept;
@@ -66,6 +67,7 @@ namespace biv {
 			void remove_objs();
 			void remove_platform(Platform*);
 			void remove_static_obj(Rect*);
+			void remove_move_collisionable(MoveCollisionable*);
 			
 			void start_level() noexcept;
 

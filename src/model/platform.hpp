@@ -8,7 +8,7 @@
 #include "rect_map_movable_adapter.hpp"
 
 namespace biv {
-  class Platform : public RectMapMovableAdapter, protected Movable {
+  class Platform : public RectMapMovableAdapter, public Movable {
     protected:
       Coord start;
       Coord end;
