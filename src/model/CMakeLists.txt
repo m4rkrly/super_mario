@@ -5,6 +5,7 @@ target_sources(${PROJECT_NAME}
 		movable.cpp
 		platform.cpp
 		rect.cpp
+		move_collisionable.cpp
 		rect_map_movable_adapter.cpp
 )
 

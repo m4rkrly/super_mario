@@ -27,8 +27,6 @@ namespace biv {
         const unsigned int offset
       );
     
-      void force_passsangers_direction_recheck() noexcept;
-
       virtual bool is_on_platform(Movable*) const noexcept;
       virtual bool is_in_platform_way(Movable*) const noexcept;
       

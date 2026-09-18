@@ -16,10 +16,6 @@ namespace biv {
 			virtual Rect get_rect() const noexcept = 0;
 			virtual Speed get_speed() const noexcept = 0;
 		
-			// (DEV) Переделать под чисто абстрактный после
-			// проверки  работы! 
-			virtual void decide_to_move(Rect*) noexcept; 
-
 			virtual void process_horizontal_static_collision(Rect*) noexcept = 0;
 			virtual void process_mario_collision(Collisionable*) noexcept = 0;
 			virtual void process_vertical_static_collision(Rect*) noexcept = 0;

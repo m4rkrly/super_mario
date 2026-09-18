@@ -47,15 +47,6 @@ void Platform::move_vertically() noexcept {
   move_vertical_offset(vspeed);
 }
 
-
-void Platform::force_passsangers_direction_recheck() noexcept {
-  for (Movable* mv : this->passangers) {
-    Collisionable* cl = dynamic_cast<Collisionable*>(mv);
-    cl->decide_to_move(this);
-  }
-}
-
-
 bool Platform::is_on_platform(Movable* obj) const noexcept { return false; }
 
 

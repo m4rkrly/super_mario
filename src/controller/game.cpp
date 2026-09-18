@@ -157,6 +157,10 @@ void Game::move_objs_vertically() noexcept {
 
 void Game::move_platforms() noexcept {
 	for (Platform* pf : platform_objs) {
+		// Если будешь переносить gather_passangers
+		// то делай это ДО передвижения платформы
+		// 
+		// std::vector<MoveCollisionable*> Game::gather_passangers(Platform* pf)
 		Coord old_coord = {pf->get_x(), pf->get_y()};
 		pf->move_platform();
 		if (check_static_collisions_except(pf, pf)) {
@@ -166,14 +170,17 @@ void Game::move_platforms() noexcept {
 
 		Coord d = {new_coord.x - old_coord.x, new_coord.y - old_coord.y};
 
+		// for (MoveCollisionable* mvc : passangers)
 		for (Movable* mv : pf->get_passangers()) {
+			// Возможно в этой же функции он будет решать своё следующее движение
+			// mvc->process_move_collision(Movable* pf)
+			// Про скатывание забудь
 			mv->move_coord_offset(d);
 			if (check_static_collisions_except(mv, pf)) {
 				Coord neg_d = {-d.x, -d.y};
 				mv->move_coord_offset(neg_d);
 			}
 		}
-		pf->force_passsangers_direction_recheck();
 	}
 }
 
