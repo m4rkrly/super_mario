@@ -5,7 +5,7 @@
 using biv::Mario;
 
 Mario::Mario(const Coord& top_left, const int width, const int height) 
-	: MoveCollisionable(top_left, width, height, 0, 0) {}
+	: MoveCollisionable(top_left, width, height, 0, 0, true) {}
 
 biv::Rect Mario::get_rect() const noexcept {
 	return {top_left, width, height};

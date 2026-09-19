@@ -11,6 +11,11 @@ Platform::Platform(
   this->end.x += offset;
 }
 
+void Platform::move_map(const float offset) noexcept {
+  top_left.x += offset;
+  start.x += offset;
+  end.x += offset;
+}
 
 void Platform::move_map_left() noexcept {
   top_left.x -= MapMovable::MAP_STEP;

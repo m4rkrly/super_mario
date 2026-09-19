@@ -12,7 +12,8 @@ namespace biv {
     protected:
       Coord start;
       Coord end;
-      
+
+      void move_map(const float offset) noexcept override;  
       void move_map_left() noexcept override;
       void move_map_right() noexcept override;
 
