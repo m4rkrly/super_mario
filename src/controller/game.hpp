@@ -49,11 +49,10 @@ namespace biv {
 			
 			void finish() noexcept;
 			
-			//void gather_platforms_passangers() noexcept;
-
 			bool is_finished() const noexcept;
 			bool is_level_end() const noexcept;
-			
+		
+			void move_map(const float offset, MapMovable* except = nullptr) noexcept;
 			void move_map_left() noexcept;
 			void move_map_right() noexcept;
 			void move_objs_horizontally() noexcept;

@@ -113,25 +113,19 @@ void Game::finish() noexcept {
 	is_finished_ = true;
 }
 
-// void Game::gather_platforms_passangers() noexcept {
-// 	std::vector<Movable*> passangers_temp;
-// 	for (Platform* pf : platform_objs) {
-// 		for (Movable* mv : movable_objs) {
-// 			if (pf->is_on_platform(mv)) {
-// 				passangers_temp.push_back(mv);
-// 			}
-// 		}
-// 		pf->update_passangers(passangers_temp);
-// 		passangers_temp.clear();
-// 	}
-// }
-
 bool Game::is_finished() const noexcept {
 	return is_finished_;
 }
 
 bool Game::is_level_end() const noexcept {
 	return is_level_end_;
+}
+
+void Game::move_map(const float offset, MapMovable* except) noexcept {
+	for (MapMovable* obj : map_movable_objs) {
+		if (obj != except)
+			obj->move_map(offset);
+	}
 }
 
 void Game::move_map_left() noexcept {
@@ -176,7 +170,12 @@ void Game::move_platforms() noexcept {
 		
 		// 3. Двигаем пассажиров
 		for (MoveCollisionable* mvc : passangers) {
-			mvc->process_movable_collision(pf);
+			if (mvc->get_is_mario() == true) {
+				float pf_speed = pf->get_hspeed();
+				this->move_map(-pf_speed);
+			} else {
+				mvc->process_movable_collision(pf);
+			}
 		}
 
 		passangers.clear();
