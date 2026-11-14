@@ -1,1 +1,5 @@
-add_subdirectory(console)
+if(GAME_TYPE STREQUAL "Qt")
+  add_subdirectory(qt)
+elseif(GAME_TYPE STREQUAL "WindowsConsole" OR GAME_TYPE STREQUAL "LinuxConsole")
+  add_subdirectory(console)
+endif()
