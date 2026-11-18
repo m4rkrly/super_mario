@@ -14,9 +14,11 @@ elseif(GAME_TYPE STREQUAL "LinuxConsole")
 	target_link_libraries(${PROJECT_NAME} PRIVATE ncurses pthread)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE LINUX_CONSOLE)
 elseif(GAME_TYPE STREQUAL "Qt")
-	set(CMAKE_AUTOMOC ON)
-	set(CMAKE_AUTOUIC ON)
-	set(CMAKE_AUTORCC ON)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		AUTOMOC ON
+		AUTOUIC ON
+		AUTORCC ON
+	)
 
 	find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 	target_link_libraries(${PROJECT_NAME} PRIVATE 

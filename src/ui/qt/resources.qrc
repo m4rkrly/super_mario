@@ -1,0 +1,16 @@
+<RCC>
+	<qresource prefix="/textures">
+		<file alias="box.png">assets/textures/box.png</file>
+		<file alias="enemy.png">assets/textures/enemy.png</file>
+		<file alias="flying_enemy.png">assets/textures/flying_enemy.png</file>
+		<file alias="full_box.png">assets/textures/full_box.png</file>
+		<file alias="full_box_used.png">assets/textures/full_box_used.png</file>
+		<file alias="horizontal_platform.png">assets/textures/horizontal_platform.png</file>
+		<file alias="jumping_enemy.png">assets/textures/jumping_enemy.png</file>
+		<file alias="mario.png">assets/textures/mario.png</file>
+		<file alias="money.png">assets/textures/money.png</file>
+		<file alias="ship.png">assets/textures/ship.png</file>
+		<file alias="sky.png">assets/textures/sky.png</file>
+		<file alias="water.png">assets/textures/water.png</file>
+	</qresource>
+</RCC>
