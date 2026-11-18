@@ -7,9 +7,11 @@ namespace biv {
 		private:
 			int height;
 			int width;
+			bool is_initialized = false;
 			
 		public:
 			LinuxControlSettings(const int height, const int width);
+			~LinuxControlSettings() override;
 			
 			void init() override;
 			void set_cursor_start_position() override;

@@ -10,6 +10,8 @@ namespace biv {
 			GameMap(const int height, const int width);
 		
 		public:
+			virtual ~GameMap() = default;
+
 			bool is_below_map(const int y) const noexcept;
 			bool is_on_map(const int x, const int y) const noexcept;
 			

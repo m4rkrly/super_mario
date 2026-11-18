@@ -203,6 +203,8 @@ void Game::remove_objs() {
 	map_movable_objs.clear();
 	movable_objs.clear();
 	static_objs.clear();
+	platform_objs.clear();
+	move_coll_objs.clear();
 	remove_mario();
 }
 

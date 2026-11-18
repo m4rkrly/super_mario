@@ -4,6 +4,11 @@ using biv::GameLevel;
 
 GameLevel::GameLevel(UIFactory* ui_factory) : ui_factory(ui_factory) {}
 
+GameLevel::~GameLevel() {
+	delete next;
+	next = nullptr;
+}
+
 void GameLevel::restart() {
 	clear_data();
 	init_data();

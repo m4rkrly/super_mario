@@ -7,6 +7,12 @@ using biv::LinuxControlSettings;
 LinuxControlSettings::LinuxControlSettings(const int height, const int width)
 : height(height), width(width) {}
 
+LinuxControlSettings::~LinuxControlSettings() {
+	if (is_initialized) {
+		endwin();
+	}
+}
+
 void LinuxControlSettings::init() {
 	/*initscr();
 	curs_set(0);
@@ -27,6 +33,7 @@ void LinuxControlSettings::init() {
     // (DEV) задаёт видимость курсора. 0 - невидимый
 	curs_set(0);
 	getmaxyx(stdscr, height, width);
+	is_initialized = true;
 }
 
 void LinuxControlSettings::set_cursor_start_position() {

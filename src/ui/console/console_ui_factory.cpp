@@ -4,16 +4,60 @@ using biv::ConsoleUIFactory;
 
 ConsoleUIFactory::ConsoleUIFactory(Game* game) : UIFactory(game) {}
 
+ConsoleUIFactory::~ConsoleUIFactory() {
+	clear_data();
+	delete game_map;
+	game_map = nullptr;
+}
+
 void ConsoleUIFactory::clear_data() {
 	game->remove_objs();
-	game_map->remove_objs();
+	if (game_map != nullptr) {
+		game_map->remove_objs();
+	}
+
 	delete mario;
 	mario = nullptr;
+
+	for (ConsoleBox* box : boxes) {
+		delete box;
+	}
 	boxes.clear();
+
+	for (ConsoleFullBox* full_box : full_boxes) {
+		delete full_box;
+	}
 	full_boxes.clear();
+
+	for (ConsoleShip* ship : ships) {
+		delete ship;
+	}
 	ships.clear();
+
+	for (ConsoleEnemy* enemy : enemies) {
+		delete enemy;
+	}
 	enemies.clear();
+
+	for (ConsoleMoney* money : moneys) {
+		delete money;
+	}
 	moneys.clear();
+
+	for (ConsoleFlyingEnemy* flying_enemy : flying_enemies) {
+		delete flying_enemy;
+	}
+	flying_enemies.clear();
+
+	for (ConsoleJumpingEnemy* jumping_enemy : jumping_enemies) {
+		delete jumping_enemy;
+	}
+	jumping_enemies.clear();
+
+	for (ConsoleHorizontalPlatform* platform : horizontal_platforms) {
+		delete platform;
+	}
+	horizontal_platforms.clear();
 }
 
 void ConsoleUIFactory::create_box(
@@ -79,6 +123,7 @@ void ConsoleUIFactory::create_mario(
 ) {
 	game->remove_collisionable(mario);
 	game->remove_movable(mario);
+	game->remove_move_collisionable(mario);
 	game->remove_mario();
 	game_map->remove_obj(mario);
 	delete mario;

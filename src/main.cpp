@@ -76,6 +76,7 @@ int main() {
   // который возвращает nullptr в UIFactory по умолчанию, но для QtUIFactory
   // будет возвращать виджет GameMap, если она создана
   biv::GameLevel *game_level = new biv::FirstLevel(ui_factory);
+  biv::GameLevel *first_level = game_level;
   biv::Mario *mario = ui_factory->get_mario();
 
   biv::UserInput user_input;
@@ -149,6 +150,10 @@ int main() {
       !game.is_finished());
 
   // 6. Завершение
+  delete first_level;
+  delete ui_factory;
+  delete keyboard;
+  delete control_settings;
   // (DEV) Сюда возможно добавить некоторые финализирующие моменты для Qt через
   // if-else
 }

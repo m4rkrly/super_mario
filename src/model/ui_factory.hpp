@@ -18,6 +18,8 @@ namespace biv {
 			UIFactory(Game* game) : game(game) {}
 
 		public:
+			virtual ~UIFactory() = default;
+
 			virtual void clear_data() = 0;
 			virtual void create_box(
 				const Coord& top_left, const int width, const int height) = 0;

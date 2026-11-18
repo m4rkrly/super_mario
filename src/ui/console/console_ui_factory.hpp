@@ -28,6 +28,7 @@ namespace biv {
 
 		public:
 			ConsoleUIFactory(Game* game);
+			~ConsoleUIFactory() override;
 			
 			void clear_data() override;
 			void create_box(
