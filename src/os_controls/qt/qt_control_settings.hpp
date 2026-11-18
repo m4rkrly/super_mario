@@ -1,2 +1,11 @@
-// Здесь будет пустышка для control_settings, чтобы set_cursor_position не
-// срабатывал в ветке qt-кода
+#pragma once
+
+#include "os_control_settings.hpp"
+
+namespace biv {
+	class QtControlSettings : public OSControlSettings {
+		public:
+			void init() override;
+			void set_cursor_start_position() override;
+	};
+}

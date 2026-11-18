@@ -26,6 +26,7 @@ elseif(GAME_TYPE STREQUAL "Qt")
 		Qt6::Widgets
 	)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE QT)
+	target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 endif()
 
 add_subdirectory(os_controls)
