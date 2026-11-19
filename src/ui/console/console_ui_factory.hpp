@@ -63,6 +63,7 @@ namespace biv {
 
 			
 			GameMap* get_game_map(const int height, const int width) override;
+			QGraphicsView* get_game_map_widget() override;
 			Mario* get_mario() override;
 	};
 }

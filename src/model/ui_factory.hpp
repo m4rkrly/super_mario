@@ -9,6 +9,8 @@
 #include "game_map.hpp"
 #include "mario.hpp"
 
+class QGraphicsView;
+
 namespace biv {
 	class UIFactory {
 		protected:
@@ -45,6 +47,7 @@ namespace biv {
 				const unsigned int offset
 			) = 0;
 			virtual GameMap* get_game_map(const int height, const int width) = 0;
+			virtual QGraphicsView* get_game_map_widget() = 0;
 			virtual Mario* get_mario() = 0;
 	};
 }

@@ -184,6 +184,10 @@ biv::GameMap* ConsoleUIFactory::get_game_map(const int height, const int width) 
 	return game_map;
 }
 
+QGraphicsView* ConsoleUIFactory::get_game_map_widget() {
+	return nullptr;
+}
+
 biv::Mario* ConsoleUIFactory::get_mario() {
 	return mario;
 }
