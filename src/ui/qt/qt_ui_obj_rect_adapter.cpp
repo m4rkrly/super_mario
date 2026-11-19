@@ -28,7 +28,8 @@ void QtUIObjRectAdapter::paint(
 	const QStyleOptionGraphicsItem*,
 	QWidget*
 ) {
-	if (texture.isNull()) {
+	const QPixmap& current_texture = get_texture();
+	if (current_texture.isNull()) {
 		return;
 	}
 
@@ -40,7 +41,7 @@ void QtUIObjRectAdapter::paint(
 
 	for (int y = 0; y < object_height; y += TILE_SIZE) {
 		for (int x = 0; x < object_width; x += TILE_SIZE) {
-			painter->drawPixmap(QPoint(x, y), texture);
+			painter->drawPixmap(QPoint(x, y), current_texture);
 		}
 	}
 
