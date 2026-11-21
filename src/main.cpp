@@ -19,8 +19,10 @@
         - Какими элементами языка С++ реализуется этот принцип?
         - Приведите примеры кода, отображающие этот прицип.
 */
+#include <chrono>
 #include <thread>
 
+#include "app_factory.hpp"
 #include "first_level.hpp"
 #include "game.hpp"
 #include "game_level.hpp"
@@ -30,91 +32,39 @@
 #include "os_control_settings.hpp"
 #include "ui_factory.hpp"
 
-#ifdef WINDOWS_CONSOLE
-#include "console_ui_factory.hpp"
-#include "windows_control_settings.hpp"
-#include "windows_keyboard.hpp"
-#elif defined(LINUX_CONSOLE)
-#include "console_ui_factory.hpp"
-#include "linux_control_settings.hpp"
-#include "linux_keyboard.hpp"
-#include "ncurses.h"
-#elif defined(QT)
-#include <QApplication>
-#include <QGraphicsView>
-
-#include "game_window.hpp"
-#include "qt_control_settings.hpp"
-#include "qt_keyboard.hpp"
-#include "qt_ui_factory.hpp"
+#ifdef QT
+#include "qt_app_factory.hpp"
+#else
+#include "console_app_factory.hpp"
 #endif
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   // 1. Установка параметров игры
   using namespace std::chrono_literals;
 
-#ifndef QT
-  (void) argc;
-  (void) argv;
-#else
-  QApplication app(argc, argv);
-#endif
-
   const int map_height = 30;
-  const int map_weight = 200;
-  auto frame_delay = std::chrono::milliseconds(0);
+  const int map_width = 200;
 
-  biv::OSControlSettings *control_settings = nullptr;
-  biv::KeyBoard *keyboard = nullptr;
+  biv::Game game;
+
+  biv::AppFactory *app_factory = nullptr;
 #ifdef QT
-  biv::QtKeyBoard *qt_keyboard = nullptr;
+  app_factory = new biv::QtAppFactory(map_height, map_width);
+#else
+  app_factory = new biv::ConsoleAppFactory(map_height, map_width);
 #endif
-#ifdef WINDOWS_CONSOLE
-  control_settings = new biv::WindowsControlSettings();
-  keyboard = new biv::WindowsKeyBoard();
-  frame_delay = std::chrono::milliseconds(10);
-#elif defined(LINUX_CONSOLE)
-  control_settings = new biv::LinuxControlSettings(map_height, map_weight);
-  keyboard = new biv::LinuxKeyboard();
-  frame_delay = std::chrono::milliseconds(50);
-#elif defined(QT)
-  control_settings = new biv::QtControlSettings();
-  qt_keyboard = new biv::QtKeyBoard();
-  keyboard = qt_keyboard;
-  frame_delay = std::chrono::milliseconds(16);
-#endif
+
+  app_factory->create_app(argc, argv);
+
+  biv::OSControlSettings *control_settings =
+      app_factory->create_os_control_settings();
+  biv::KeyBoard *keyboard = app_factory->create_keyboard();
 
   control_settings->init();
   keyboard->on();
 
-#ifdef QT
-  biv::GameWindow window;
-  QObject::connect(
-      &window, &biv::GameWindow::key_pressed,
-      qt_keyboard, &biv::QtKeyBoard::process_key_press);
-  QObject::connect(
-      &window, &biv::GameWindow::key_released,
-      qt_keyboard, &biv::QtKeyBoard::process_key_release);
-#endif
-
-  biv::Game game;
-#ifdef QT
-  biv::UIFactory *ui_factory = new biv::QtUIFactory(&game);
-#else
-  biv::UIFactory *ui_factory = new biv::ConsoleUIFactory(&game);
-#endif
-  biv::GameMap *game_map = ui_factory->get_game_map(map_height, map_weight);
-
-#ifdef QT
-  QGraphicsView *game_view = ui_factory->get_game_map_widget();
-  if (game_view != nullptr) {
-    window.setCentralWidget(game_view);
-    window.setFixedSize(game_view->size());
-  }
-  window.show();
-  window.activateWindow();
-  window.setFocus();
-#endif
+  biv::UIFactory *ui_factory = app_factory->create_ui_factory(&game);
+  biv::GameMap *game_map = app_factory->create_game_map();
 
   biv::GameLevel *game_level = new biv::FirstLevel(ui_factory);
   biv::GameLevel *first_level = game_level;
@@ -184,22 +134,13 @@ int main(int argc, char** argv) {
     game_map->refresh();
     control_settings->set_cursor_start_position();
     game_map->show();
-#ifdef QT
-    QApplication::processEvents();
-#endif
-    std::this_thread::sleep_for(frame_delay);
+    app_factory->process_events();
+    std::this_thread::sleep_for(app_factory->get_frame_delay());
   } while (
       /* 5. Проверка того, не окончена ли игра */
       !game.is_finished());
 
   // 6. Завершение
-#ifdef QT
-  window.hide();
-  QWidget *game_widget = window.takeCentralWidget();
-  delete game_widget;
-#endif
   delete first_level;
-  delete ui_factory;
-  delete keyboard;
-  delete control_settings;
+  delete app_factory;
 }

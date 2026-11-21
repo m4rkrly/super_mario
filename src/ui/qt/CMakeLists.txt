@@ -1,6 +1,7 @@
 target_sources(${PROJECT_NAME}
 	PRIVATE
 		game_window.cpp
+		qt_app_factory.cpp
 		qt_game_map.cpp
 		qt_ui_factory.cpp
 		qt_ui_obj_rect_adapter.cpp
